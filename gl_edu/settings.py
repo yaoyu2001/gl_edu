@@ -9,14 +9,22 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+# -*- coding: utf-8 -*-
 from pathlib import Path
 import os
 import sys
 
+# import django
+#
+# django.setup()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#将我们自己定义的包加入到python搜寻环境变量当中 add
+sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
+sys.path.insert(0,os.path.join(BASE_DIR,'extra_apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'courses.apps.CoursesConfig',
+    'orgs.apps.OrgsConfig',
+    'operations.apps.OperationsConfig',
 ]
+
+# Substituting a custom User model.
+AUTH_USER_MODEL = 'users.UserProfile'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,15 +127,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -133,4 +147,4 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
